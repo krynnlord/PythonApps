@@ -2,6 +2,7 @@ import os
 import json
 import base64
 import getpass
+import pyperclip
 from cryptography.fernet import Fernet
 from hashlib import sha256
 
@@ -65,6 +66,7 @@ def view_entry_list(vault: dict, filtered_sites=None):
         print(f"\nSite: {selected_site}")
         print(f"Username: {creds['username']}")
         print(f"Password: {creds['password']}")
+        pyperclip.copy(f"{creds['password']}")
     except (ValueError, IndexError):
         print("Invalid selection.")
 
