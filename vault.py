@@ -41,7 +41,7 @@ def add_entry(vault: dict, PASS_VIS):
     vault[site] = {'username': username, 'password': password}
     print(f"Entry for '{site}' added.")
 
-def view_entry_list(vault: dict, filtered_sites=None):
+def view_entry_list(vault: dict, PASS_VIS, filtered_sites=None):
     if not vault:
         print("Vault is empty.")
         return
@@ -53,7 +53,7 @@ def view_entry_list(vault: dict, filtered_sites=None):
         print("No entries found.")
         return
 
-    print("\nStored sites:")
+    print("Stored sites:\n")
     for i, site in enumerate(sites, start=1):
         print(f"{i}. {site}")
 
@@ -65,19 +65,23 @@ def view_entry_list(vault: dict, filtered_sites=None):
         creds = vault[selected_site]
         print(f"\nSite: {selected_site}")
         print(f"Username: {creds['username']}")
-        print(f"Password: {creds['password']}")
+        if PASS_VIS == True:
+            print(f"Password: \33[32m{creds['password']}\33[0m")
+        if PASS_VIS == False:
+            print(f"Password: \33[31m<<Hidden>>\33[0m")
         pyperclip.copy(f"{creds['password']}")
     except (ValueError, IndexError):
         print("Invalid selection.")
 
-def view_vault(vault: dict):
+def view_vault(vault: dict,PASS_VIS):
     sorted_sites = sorted(vault.keys(), key=str.lower)
-    view_entry_list(vault, filtered_sites=sorted_sites)
+    view_entry_list(vault, PASS_VIS, filtered_sites=sorted_sites)
 
-def search_vault(vault: dict):
+def search_vault(vault: dict, PASS_VIS):
     term = input("Search site name: ").strip().lower()
     matches = [site for site in vault if term in site.lower()]
-    view_entry_list(vault, filtered_sites=matches)
+    clear_screen()
+    view_entry_list(vault, PASS_VIS,filtered_sites=matches)
 
 def change_password(vault: dict,PASS_VIS):
     if not vault:
@@ -131,7 +135,7 @@ def delete_entry(vault: dict):
         print("Invalid selection.")
 
 def change_master_password(vault: dict, current_key: bytes,PASS_VIS) -> bytes:
-    print("\n=== Change Master Password ===")
+    print("=== Change Master Password ===\n")
 
     # Confirm old password works by decrypting vault file
     try:
@@ -167,9 +171,9 @@ def main():
     PASS_VISIBLE = False
     PASS_CHANGED = False
     clear_screen()
-    print("================================")
-    print("    Richard's Password Vault    ")
-    print("================================")
+    print("\33[93m================================\33[0m")
+    print("\33[34m    Richard's Password Vault    \33[0m")
+    print("\33[93m================================\33[0m")
     master_password = getpass.getpass("Enter master password: ")
     key = derive_key(master_password)
     fernet = Fernet(key)
@@ -178,23 +182,23 @@ def main():
 
     while True:
         clear_screen()
-        print("================================")
-        print("    Richard's Password Vault    ")
-        print("================================")
-        print("\n[A] Add entry\n[V] View list\n[S] Search\n[D] Delete entry\n[C] Change password\n[M] Change Master password\n[Y] Password visibility", end=" ")
+        print("\33[93m================================\33[0m")
+        print("\33[34m    Richard's Password Vault    \33[0m")
+        print("\33[93m================================\33[0m")
+        print("\n[\33[92mA\33[0m] Add entry\n[\33[92mV\33[0m] View list\n[\33[92mS\33[0m] Search\n[\33[92mD\33[0m] Delete entry\n[\33[92mC\33[0m] Change password\n[\33[92mM\33[0m] Change Master password\n[\33[92mY\33[0m] Password visibility", end=" ")
         if PASS_VISIBLE == True:
-            print("[Currently: \33[32m"+str(PASS_VISIBLE)+"\33[0m]\n[Q] Quit\n")
+            print("[Currently: \33[32m"+str(PASS_VISIBLE)+"\33[0m]\n[\33[92mQ\33[0m] Quit\n")
         else:
-            print("[Currently: \33[31m"+str(PASS_VISIBLE)+"\33[0m]\n[Q] Quit\n")
+            print("[Currently: \33[31m"+str(PASS_VISIBLE)+"\33[0m]\n[\33[92mQ\33[0m] Quit\n")
         choice = input("> ").strip().lower()
         clear_screen()
         if choice == 'a':
             add_entry(vault,PASS_VISIBLE)
             save_vault(vault, fernet)
         elif choice == 'v':
-            view_vault(vault)
+            view_vault(vault,PASS_VISIBLE)
         elif choice == 's':
-            search_vault(vault)
+            search_vault(vault, PASS_VISIBLE)
         elif choice == 'c':
             change_password(vault,PASS_VISIBLE)
             save_vault(vault, fernet)
