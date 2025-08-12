@@ -32,7 +32,7 @@ def save_vault(data: dict, fernet: Fernet):
         f.write(encrypted_data)
 
 def add_entry(vault: dict, PASS_VIS):
-    site = input("Site name: ")
+    site = input("\33[93mSite name: \33[0m")
     username = input("Username: ")
     if PASS_VIS == True:
         password = input("Enter password: ")
@@ -53,7 +53,7 @@ def view_entry_list(vault: dict, PASS_VIS, filtered_sites=None):
         print("No entries found.")
         return
 
-    print("Stored sites:\n")
+    print("\33[93mStored sites:\33[0m\n")
     for i, site in enumerate(sites, start=1):
         print(f"{i}. {site}")
 
@@ -78,7 +78,7 @@ def view_vault(vault: dict,PASS_VIS):
     view_entry_list(vault, PASS_VIS, filtered_sites=sorted_sites)
 
 def search_vault(vault: dict, PASS_VIS):
-    term = input("Search site name: ").strip().lower()
+    term = input("\33[93mSearch site name: \33[0m").strip().lower()
     matches = [site for site in vault if term in site.lower()]
     clear_screen()
     view_entry_list(vault, PASS_VIS,filtered_sites=matches)
@@ -89,7 +89,7 @@ def change_password(vault: dict,PASS_VIS):
         return
 
     sites = sorted(vault.keys(), key=str.lower)
-    print("\nSelect a site to change its password:")
+    print("\33[93mSelect a site to change its password:\33[0m\n")
     for i, site in enumerate(sites, start=1):
         print(f"{i}. {site}")
 
@@ -115,7 +115,7 @@ def delete_entry(vault: dict):
         return
 
     sites = sorted(vault.keys(), key=str.lower)
-    print("\nSelect a site to delete:")
+    print("\33[93mSelect a site to delete:\33[0m\n")
     for i, site in enumerate(sites, start=1):
         print(f"{i}. {site}")
 
@@ -135,7 +135,7 @@ def delete_entry(vault: dict):
         print("Invalid selection.")
 
 def change_master_password(vault: dict, current_key: bytes,PASS_VIS) -> bytes:
-    print("=== Change Master Password ===\n")
+    print("\33[93m=== Change Master Password ===\33[0m\n")
 
     # Confirm old password works by decrypting vault file
     try:
@@ -172,7 +172,7 @@ def main():
     PASS_CHANGED = False
     clear_screen()
     print("\33[93m================================\33[0m")
-    print("\33[34m    Richard's Password Vault    \33[0m")
+    print("\33[34m    Richard's Password Vault\33[0m")
     print("\33[93m================================\33[0m")
     master_password = getpass.getpass("Enter master password: ")
     key = derive_key(master_password)
@@ -185,11 +185,21 @@ def main():
         print("\33[93m================================\33[0m")
         print("\33[34m    Richard's Password Vault    \33[0m")
         print("\33[93m================================\33[0m")
-        print("\n[\33[92mA\33[0m] Add entry\n[\33[92mV\33[0m] View list\n[\33[92mS\33[0m] Search\n[\33[92mD\33[0m] Delete entry\n[\33[92mC\33[0m] Change password\n[\33[92mM\33[0m] Change Master password\n[\33[92mY\33[0m] Password visibility", end=" ")
+        print("\n[\33[92mV\33[0m] View list")
+        print("[\33[\33[92mS\33[0m] Search")
+        print("[\33[92mA\33[0m] Add entry")
+        print("[\33[92mD\33[0m] Delete entry")
+        print("[\33[92mC\33[0m] Change site password")
+        print("[\33[92mM\33[0m] Change master password")
+        print("[\33[92mY\33[0m] Password visibility", end=" ")
+        
         if PASS_VISIBLE == True:
-            print("[Currently: \33[32m"+str(PASS_VISIBLE)+"\33[0m]\n[\33[92mQ\33[0m] Quit\n")
+            print("[Currently: \33[32m"+str(PASS_VISIBLE)+"\33[0m]")
         else:
-            print("[Currently: \33[31m"+str(PASS_VISIBLE)+"\33[0m]\n[\33[92mQ\33[0m] Quit\n")
+            print("[Currently: \33[31m"+str(PASS_VISIBLE)+"\33[0m]")
+        
+        print("[\33[92mQ\33[0m] Quit\n")
+        
         choice = input("> ").strip().lower()
         clear_screen()
         if choice == 'a':
