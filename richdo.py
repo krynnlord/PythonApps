@@ -31,7 +31,7 @@ def save_vault(data: dict, fernet: Fernet):
         f.write(encrypted_data)
 
 def add_entry(vault: dict):
-    site = input("\33[93mToDo: \33[0m")
+    site = input("\33[93mTask: \33[0m")
     vault[site] = {'task': site}
     
 def view_entry_list(vault: dict, filtered_sites=None):
@@ -41,23 +41,24 @@ def view_entry_list(vault: dict, filtered_sites=None):
     print("")
     
     sites = filtered_sites if filtered_sites is not None else list(vault.keys())
-    sites.sort(key=str.lower)
-
+    
     if not sites:
         return
 
     for i, site in enumerate(sites, start=1):
-        print(f"{i}. {site}")
+        print("\33[34m"+f"{i}. "+"\33[0m"+ f"{site}")
 
 def delete_entry(vault: dict):
     if not vault:
         print("Vault is empty.")
         return
 
-    sites = sorted(vault.keys(), key=str.lower)
+    sites = list(vault.keys())
+    
     print("\33[93mSelect a task to delete:\33[0m\n")
     for i, site in enumerate(sites, start=1):
-        print(f"{i}. {site}")
+        
+        print("\33[34m"+f"{i}. "+"\33[0m"+ f"{site}")
 
     try:
         selection = int(input("\nEnter number (0 to cancel): "))
