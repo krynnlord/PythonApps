@@ -1,0 +1,135 @@
+{
+    "$help": "https://aka.ms/terminal-documentation",
+    "$schema": "https://aka.ms/terminal-profiles-schema",
+    "actions": 
+    [
+        {
+            "command": 
+            {
+                "action": "copy",
+                "singleLine": false
+            },
+            "id": "User.copy.644BA8F2"
+        },
+        {
+            "command": "paste",
+            "id": "User.paste"
+        },
+        {
+            "command": 
+            {
+                "action": "splitPane",
+                "split": "auto",
+                "splitMode": "duplicate"
+            },
+            "id": "User.splitPane.A6751878"
+        },
+        {
+            "command": "find",
+            "id": "User.find"
+        }
+    ],
+    "copyFormatting": "none",
+    "copyOnSelect": false,
+    "defaultProfile": "{0caa0dad-35be-5f56-a8ff-afceeeaa6101}",
+    "initialCols": 80,
+    "initialRows": 50,
+    "keybindings": 
+    [
+        {
+            "id": "User.copy.644BA8F2",
+            "keys": "ctrl+c"
+        },
+        {
+            "id": "User.find",
+            "keys": "ctrl+shift+f"
+        },
+        {
+            "id": "User.paste",
+            "keys": "ctrl+v"
+        },
+        {
+            "id": "User.splitPane.A6751878",
+            "keys": "alt+shift+d"
+        }
+    ],
+    "newTabMenu": 
+    [
+        {
+            "type": "remainingProfiles"
+        }
+    ],
+    "profiles": 
+    {
+        "defaults": 
+        {
+            "colorScheme": "One Half Dark",
+            "font": 
+            {
+                "face": "JetBrainsMono Nerd Font"
+            },
+            "opacity": 85
+        },
+        "list": 
+        [
+            {
+                "altGrAliasing": true,
+                "antialiasingMode": "grayscale",
+                "closeOnExit": "automatic",
+                "commandline": "python vault.py",
+                "cursorShape": "bar",
+                "font": 
+                {
+                    "size": 12
+                },
+                "guid": "{740ec8c2-a58b-41f1-b3ff-43e9f4d11ca5}",
+                "hidden": false,
+                "historySize": 9001,
+                "icon": "C:\\Users\\richard.miller\\OneDrive - State of North Dakota\\Documents\\vault\\vault_icon.png",
+                "name": "RichVault",
+                "padding": "8, 8, 8, 8",
+                "snapOnInput": true,
+                "startingDirectory": "C:\\Users\\richard.miller\\OneDrive - State of North Dakota\\Documents\\vault",
+                "tabTitle": "Richard's Password Vault",
+                "useAcrylic": false
+            },
+			{
+                "altGrAliasing": true,
+                "antialiasingMode": "grayscale",
+                "closeOnExit": "automatic",
+                "commandline": "python richdo.py",
+                "cursorShape": "bar",
+                "font": 
+                {
+                    "size": 12
+                },
+                "guid": "{09a76fb8-62b5-4e84-8294-93855de098a4}",
+                "hidden": false,
+                "historySize": 9001,
+                "icon": "C:\\Users\\richard.miller\\OneDrive - State of North Dakota\\Documents\\Richdo\\todo.png",
+                "name": "RichTasks",
+                "padding": "8, 8, 8, 8",
+                "snapOnInput": true,
+                "startingDirectory": "C:\\Users\\richard.miller\\OneDrive - State of North Dakota\\Documents\\Richdo",
+                "tabTitle": "Richard's Tasks",
+                "useAcrylic": false
+            },
+            {
+                "commandline": "%SystemRoot%\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+                "guid": "{61c54bbd-c2c6-5271-96e7-009a87ff44bf}",
+                "hidden": false,
+                "name": "Windows PowerShell"
+            },
+            {
+                "commandline": "%SystemRoot%\\System32\\cmd.exe",
+                "guid": "{0caa0dad-35be-5f56-a8ff-afceeeaa6101}",
+                "hidden": false,
+                "name": "Command Prompt"
+            }
+            
+        ]
+    },
+    "schemes": [],
+    "themes": [],
+    "useAcrylicInTabRow": false
+}
