@@ -86,18 +86,18 @@
                 "hidden": false,
                 "historySize": 9001,
                 "icon": "C:\\Users\\richard.miller\\OneDrive - State of North Dakota\\Documents\\vault\\vault_icon.png",
-                "name": "RichVault",
+                "name": "PasswordVault",
                 "padding": "8, 8, 8, 8",
                 "snapOnInput": true,
                 "startingDirectory": "C:\\Users\\richard.miller\\OneDrive - State of North Dakota\\Documents\\vault",
                 "tabTitle": "Richard's Password Vault",
                 "useAcrylic": false
             },
-			{
+            {
                 "altGrAliasing": true,
                 "antialiasingMode": "grayscale",
                 "closeOnExit": "automatic",
-                "commandline": "python richdo.py",
+                "commandline": "python tasks.py",
                 "cursorShape": "bar",
                 "font": 
                 {
@@ -106,8 +106,8 @@
                 "guid": "{09a76fb8-62b5-4e84-8294-93855de098a4}",
                 "hidden": false,
                 "historySize": 9001,
-                "icon": "C:\\Users\\richard.miller\\OneDrive - State of North Dakota\\Documents\\Richdo\\todo.png",
-                "name": "RichTasks",
+                "icon": "C:\\Users\\richard.miller\\OneDrive - State of North Dakota\\Documents\\Richdo\\tasks.png",
+                "name": "Tasks",
                 "padding": "8, 8, 8, 8",
                 "snapOnInput": true,
                 "startingDirectory": "C:\\Users\\richard.miller\\OneDrive - State of North Dakota\\Documents\\Richdo",
@@ -126,7 +126,6 @@
                 "hidden": false,
                 "name": "Command Prompt"
             }
-            
         ]
     },
     "schemes": [],

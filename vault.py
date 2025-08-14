@@ -172,7 +172,7 @@ def main():
     PASS_CHANGED = False
     clear_screen()
     print("\33[93m================================\33[0m")
-    print("\33[34m    Richard's Password Vault\33[0m")
+    print("\33[34m        Password Vault\33[0m")
     print("\33[93m================================\33[0m")
     master_password = getpass.getpass("Enter master password: ")
     key = derive_key(master_password)
@@ -183,7 +183,7 @@ def main():
     while True:
         clear_screen()
         print("\33[93m================================\33[0m")
-        print("\33[34m    Richard's Password Vault    \33[0m")
+        print("\33[34m        Password Vault    \33[0m")
         print("\33[93m================================\33[0m")
         print("\n[\33[92mV\33[0m] View list")
         print("[\33[\33[92mS\33[0m] Search")
