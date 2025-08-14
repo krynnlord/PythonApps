@@ -6,7 +6,6 @@ from cryptography.fernet import Fernet
 from hashlib import sha256
 
 VAULT_FILE = 'tasks.dat'
-version_number = '1.1'
 
 def clear_screen():
     os.system("cls" if os.name == "nt" else "clear")
@@ -112,4 +111,5 @@ def main():
             print("Invalid option.")
         
 if __name__ == "__main__":
+
     main()
