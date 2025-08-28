@@ -6,6 +6,7 @@ from cryptography.fernet import Fernet
 from hashlib import sha256
 
 VAULT_FILE = 'tasks.dat'
+version_number = '1.1'
 
 def clear_screen():
     os.system("cls" if os.name == "nt" else "clear")
@@ -32,7 +33,35 @@ def save_vault(data: dict, fernet: Fernet):
 
 def add_entry(vault: dict):
     site = input("\33[93mTask: \33[0m")
-    vault[site] = {'task': site}
+    vault[site] = {'task': site, 'priority': '3'}
+
+def change_priority(vault: dict):
+    if not vault:
+        print("Vault is empty.")
+        return
+
+    sites = list(vault.keys())
+    
+    print("\33[93mSelect a task:\33[0m\n")
+    for i, site in enumerate(sites, start=1):
+        
+        print("\33[34m"+f"{i}. "+"\33[0m"+ f"{site}")
+
+    try:
+        selection = int(input("\nEnter number (0 to cancel): "))
+        if selection == 0:
+            return
+        selected_site = sites[selection - 1]
+
+        pri = input("Priority 1-3: ")
+        if pri == 0:
+            return
+        if pri == '1' or pri == '2' or pri == '3':
+            vault[selected_site]['priority'] = pri
+                
+    except (ValueError, IndexError):
+        print("Invalid selection.")
+    
     
 def view_entry_list(vault: dict, filtered_sites=None):
     if not vault:
@@ -46,7 +75,12 @@ def view_entry_list(vault: dict, filtered_sites=None):
         return
 
     for i, site in enumerate(sites, start=1):
-        print("\33[34m"+f"{i}. "+"\33[0m"+ f"{site}")
+        if vault[site]['priority'] == '3':
+            print("\33[34m"+f"{i}. "+"\33[0m"+ f"{site}"+"\33[0m")
+        if vault[site]['priority'] == '2':
+            print("\33[34m"+f"{i}. "+"\33[93m"+ f"{site}"+"\33[0m")    
+        if vault[site]['priority'] == '1':
+            print("\33[34m"+f"{i}. "+"\033[0;31m"+ f"{site}"+"\33[0m")      
 
 def delete_entry(vault: dict):
     if not vault:
@@ -91,14 +125,17 @@ def main():
         print("[\33[92mA\33[0m] Add Task")
         if vault:
             print("[\33[92mD\33[0m] Delete Task")
-
-      
+            print("[\33[92mP\33[0m] Change Priority")
+    
         print("[\33[92mQ\33[0m] Quit\n")
         
         choice = input("> ").strip().lower()
         clear_screen()
         if choice == 'a':
             add_entry(vault)
+            save_vault(vault, fernet)
+        elif choice == 'p':
+            change_priority(vault)
             save_vault(vault, fernet)
         elif choice == 'd':
             delete_entry(vault)
@@ -111,5 +148,4 @@ def main():
             print("Invalid option.")
         
 if __name__ == "__main__":
-
     main()
