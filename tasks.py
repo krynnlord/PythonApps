@@ -100,8 +100,13 @@ def delete_entry(vault: dict):
     print("\33[93mSelect a task to delete:\33[0m\n")
     for i, site in enumerate(sites, start=1):
         
-        print("\33[34m"+f"{i}. "+"\33[0m"+ f"{site}")
-
+        if vault[site]['priority'] == '3':
+            print("\33[34m"+f"{i}. "+"\33[0m"+ f"{site}"+"\33[0m")
+        if vault[site]['priority'] == '2':
+            print("\33[34m"+f"{i}. "+"\33[93m"+ f"{site}"+"\33[0m")    
+        if vault[site]['priority'] == '1':
+            print("\33[34m"+f"{i}. "+"\033[0;31m"+ f"{site}"+"\33[0m")  
+       
     try:
         selection = int(input("\nEnter number (0 to cancel): "))
         if selection == 0:
