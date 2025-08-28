@@ -45,24 +45,32 @@ def change_priority(vault: dict):
     print("\33[93mSelect a task:\33[0m\n")
     for i, site in enumerate(sites, start=1):
         
-        print("\33[34m"+f"{i}. "+"\33[0m"+ f"{site}")
+        if vault[site]['priority'] == '3':
+            print("\33[34m"+f"{i}. "+"\33[0m"+ f"{site}"+"\33[0m")
+        if vault[site]['priority'] == '2':
+            print("\33[34m"+f"{i}. "+"\33[93m"+ f"{site}"+"\33[0m")    
+        if vault[site]['priority'] == '1':
+            print("\33[34m"+f"{i}. "+"\033[0;31m"+ f"{site}"+"\33[0m")  
 
     try:
+        
         selection = int(input("\nEnter number (0 to cancel): "))
         if selection == 0:
             return
         selected_site = sites[selection - 1]
 
-        pri = input("Priority 1-3: ")
-        if pri == 0:
+        print("\n1 - \033[0;31mCritical\33[0m  " ,end="")
+        print("2 - \33[93mImportant\33[0m  ", end="")
+        print("3 - Normal")
+        pri = input("Set Priority: ")
+        if pri == '0':
             return
         if pri == '1' or pri == '2' or pri == '3':
             vault[selected_site]['priority'] = pri
                 
     except (ValueError, IndexError):
         print("Invalid selection.")
-    
-    
+      
 def view_entry_list(vault: dict, filtered_sites=None):
     if not vault:
         return
