@@ -1,5 +1,6 @@
 import os
 import json
+from datetime import datetime
 import time
 import base64
 from cryptography.fernet import Fernet
@@ -32,8 +33,10 @@ def save_vault(data: dict, fernet: Fernet):
         f.write(encrypted_data)
 
 def add_entry(vault: dict):
+    current_date = datetime.now()
+    current_time = current_date.strftime("%m/%d/%Y %I:%M%p")
     site = input("\33[93mTask: \33[0m")
-    vault[site] = {'task': site, 'priority': '3'}
+    vault[site] = {'task': site, 'priority': '3', 'time' : current_time}
 
 def change_priority(vault: dict):
     if not vault:
@@ -71,7 +74,7 @@ def change_priority(vault: dict):
     except (ValueError, IndexError):
         print("Invalid selection.")
       
-def view_entry_list(vault: dict, filtered_sites=None):
+def view_entry_list(timestamp, vault: dict, filtered_sites=None):
     if not vault:
         return
     
@@ -84,11 +87,23 @@ def view_entry_list(vault: dict, filtered_sites=None):
 
     for i, site in enumerate(sites, start=1):
         if vault[site]['priority'] == '3':
-            print("\33[34m"+f"{i}. "+"\33[0m"+ f"{site}"+"\33[0m")
+            print("\33[34m"+f"{i}. "+"\33[0m"+ f"{site}"+"\33[0m", end="")
+            if timestamp == True:
+                print("\33[92m", vault[site]['time'],"\33[0m")
+            else:
+                print("")
         if vault[site]['priority'] == '2':
-            print("\33[34m"+f"{i}. "+"\33[93m"+ f"{site}"+"\33[0m")    
+            print("\33[34m"+f"{i}. "+"\33[93m"+ f"{site}"+"\33[0m", end="")
+            if timestamp == True:
+                print("\33[92m", vault[site]['time'],"\33[0m")
+            else:
+                print("")    
         if vault[site]['priority'] == '1':
-            print("\33[34m"+f"{i}. "+"\033[0;31m"+ f"{site}"+"\33[0m")      
+            print("\33[34m"+f"{i}. "+"\033[0;31m"+ f"{site}"+"\33[0m", end="")
+            if timestamp == True:
+                print("\33[92m", vault[site]['time'],"\33[0m")
+            else:
+                print("")     
 
 def delete_entry(vault: dict):
     if not vault:
@@ -120,8 +135,11 @@ def delete_entry(vault: dict):
         print("Invalid selection.")
     
     time.sleep(1)
-
+    
+    
 def main():
+    
+    timestamp = False
     
     while True:
         master_password = '12345'
@@ -132,14 +150,14 @@ def main():
         print("\33[93m================================\33[0m")
         print("\33[34m             Tasks    \33[0m")
         print("\33[93m================================\33[0m")
-        view_entry_list(vault)
+        view_entry_list(timestamp, vault)
         print("")
 
         print("[\33[92mA\33[0m] Add Task")
         if vault:
             print("[\33[92mD\33[0m] Delete Task")
             print("[\33[92mP\33[0m] Change Priority")
-    
+            print("[\33[92mT\33[0m] Timestamp Toggle")    
         print("[\33[92mQ\33[0m] Quit\n")
         
         choice = input("> ").strip().lower()
@@ -153,6 +171,11 @@ def main():
         elif choice == 'd':
             delete_entry(vault)
             save_vault(vault, fernet)
+        elif choice == 't':
+            if timestamp == True:
+                timestamp = False
+            else:
+                timestamp = True
         elif choice == 'q':
             save_vault(vault, fernet)
             print("Tasks saved. Exiting.")
