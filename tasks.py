@@ -37,12 +37,16 @@ def add_entry(vault: dict):
     site = input("\33[93mTask: \33[0m")
     vault[site] = {'task': site, 'priority': '3', 'time' : current_time}
 
-def change_priority(vault: dict):
+def change_priority(sorter, vault: dict):
     if not vault:
         print("Vault is empty.")
         return
 
     sites = list(vault.keys())
+    if sorter == 1:
+        sites.sort(key=lambda site: vault[site]['priority'])
+    if sorter == 2:
+        sites.sort(key=lambda site: vault[site]['time'])
     
     print("\33[93mSelect a task:\33[0m\n")
     for i, site in enumerate(sites, start=1):
@@ -73,14 +77,18 @@ def change_priority(vault: dict):
     except (ValueError, IndexError):
         print("Invalid selection.")
       
-def view_entry_list(timestamp, vault: dict, filtered_sites=None):
+def view_entry_list(sorter, timestamp, vault: dict, filtered_sites=None):
     if not vault:
         return
     
     print("")
     
     sites = filtered_sites if filtered_sites is not None else list(vault.keys())
-    
+    if sorter == 1:
+        sites.sort(key=lambda site: vault[site]['priority'])
+    if sorter == 2:
+        sites.sort(key=lambda site: vault[site]['time'])
+        
     if not sites:
         return
 
@@ -111,12 +119,16 @@ def view_entry_list(timestamp, vault: dict, filtered_sites=None):
                 print("\33[34mCreated:\33[0m", vault[site]['time'],end="")
                 print("\33[34m Priority:\33[0m", current_pri_string,"\n")
 
-def delete_entry(vault: dict):
+def delete_entry(sorter, vault: dict):
     if not vault:
         print("Vault is empty.")
         return
 
     sites = list(vault.keys())
+    if sorter == 1:
+        sites.sort(key=lambda site: vault[site]['priority'])
+    if sorter == 2:
+        sites.sort(key=lambda site: vault[site]['time'])
     
     print("\33[93mSelect a task to delete:\33[0m\n")
     for i, site in enumerate(sites, start=1):
@@ -146,6 +158,7 @@ def delete_entry(vault: dict):
 def main():
     
     timestamp = False
+    sorter = 1
     
     while True:
         master_password = '12345'
@@ -156,14 +169,19 @@ def main():
         print("\33[93m================================\33[0m")
         print("\33[34m             Tasks    \33[0m")
         print("\33[93m================================\33[0m")
-        view_entry_list(timestamp, vault)
+        view_entry_list(sorter, timestamp, vault)
         print("")
 
         print("[\33[92mA\33[0m] Add Task")
         if vault:
             print("[\33[92mD\33[0m] Delete Task")
             print("[\33[92mP\33[0m] Change Priority")
-            print("[\33[92mT\33[0m] Timestamp Toggle")    
+            print("[\33[92mT\33[0m] Timestamp Toggle")
+            print("[\33[92mS\33[0m] Sort Method ", end="")
+            if sorter == 1:
+                print("(\33[34mPriority\33[0m)")
+            if sorter == 2:
+                print("(\33[34mDate Added\33[0m)")
         print("[\33[92mQ\33[0m] Quit\n")
         
         choice = input("> ").strip().lower()
@@ -172,16 +190,21 @@ def main():
             add_entry(vault)
             save_vault(vault, fernet)
         elif choice == 'p':
-            change_priority(vault)
+            change_priority(sorter, vault)
             save_vault(vault, fernet)
         elif choice == 'd':
-            delete_entry(vault)
+            delete_entry(sorter, vault)
             save_vault(vault, fernet)
         elif choice == 't':
             if timestamp == True:
                 timestamp = False
             else:
                 timestamp = True
+        elif choice == 's':
+            if sorter == 1:
+                sorter = 2
+            else:
+                sorter = 1
         elif choice == 'q':
             save_vault(vault, fernet)
             print("Tasks saved. Exiting.")
