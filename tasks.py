@@ -7,7 +7,6 @@ from cryptography.fernet import Fernet
 from hashlib import sha256
 
 VAULT_FILE = 'tasks.dat'
-version_number = '1.1'
 
 def clear_screen():
     os.system("cls" if os.name == "nt" else "clear")
@@ -86,24 +85,31 @@ def view_entry_list(timestamp, vault: dict, filtered_sites=None):
         return
 
     for i, site in enumerate(sites, start=1):
-        if vault[site]['priority'] == '3':
-            print("\33[34m"+f"{i}. "+"\33[0m"+ f"{site}"+"\33[0m", end="")
-            if timestamp == True:
-                print("\33[92m", vault[site]['time'],"\33[0m")
-            else:
-                print("")
-        if vault[site]['priority'] == '2':
-            print("\33[34m"+f"{i}. "+"\33[93m"+ f"{site}"+"\33[0m", end="")
-            if timestamp == True:
-                print("\33[92m", vault[site]['time'],"\33[0m")
-            else:
-                print("")    
+        
+        current_pri_string = 'Normal'
+        
         if vault[site]['priority'] == '1':
-            print("\33[34m"+f"{i}. "+"\033[0;31m"+ f"{site}"+"\33[0m", end="")
+            current_pri_string = 'Critical'
+        if vault[site]['priority'] == '2':
+            current_pri_string = 'Important'
+        if vault[site]['priority'] == '3':
+            current_pri_string = 'Normal'
+            
+        if vault[site]['priority'] == '3':
+            print("\33[34m"+f"{i}. "+"\33[0m"+ f"{site}"+"\33[0m")
             if timestamp == True:
-                print("\33[92m", vault[site]['time'],"\33[0m")
-            else:
-                print("")     
+                print("\33[34mCreated:\33[0m", vault[site]['time'],end="")
+                print("\33[34m Priority:\33[0m", current_pri_string,"\n")
+        if vault[site]['priority'] == '2':
+            print("\33[34m"+f"{i}. "+"\33[93m"+ f"{site}"+"\33[0m")
+            if timestamp == True:
+                print("\33[34mCreated:\33[0m", vault[site]['time'],end="")
+                print("\33[34m Priority:\33[0m", current_pri_string,"\n")  
+        if vault[site]['priority'] == '1':
+            print("\33[34m"+f"{i}. "+"\033[0;31m"+ f"{site}"+"\33[0m")
+            if timestamp == True:
+                print("\33[34mCreated:\33[0m", vault[site]['time'],end="")
+                print("\33[34m Priority:\33[0m", current_pri_string,"\n")
 
 def delete_entry(vault: dict):
     if not vault:
