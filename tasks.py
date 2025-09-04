@@ -1,6 +1,6 @@
 import os
 import json
-from datetime import datetime
+from datetime import datetime, timedelta
 import time
 import base64
 from cryptography.fernet import Fernet
@@ -78,6 +78,7 @@ def change_priority(sorter, vault: dict):
         print("Invalid selection.")
       
 def view_entry_list(sorter, timestamp, vault: dict, filtered_sites=None):
+       
     if not vault:
         return
     
@@ -102,23 +103,37 @@ def view_entry_list(sorter, timestamp, vault: dict, filtered_sites=None):
             current_pri_string = 'Important'
         if vault[site]['priority'] == '3':
             current_pri_string = 'Normal'
-            
+        
+        # Overdue calculation !-1 week
+        task_time = datetime.strptime(vault[site]['time'], "%m/%d/%Y %I:%M%p")
+        overdue1 = (datetime.now() - task_time) > timedelta(days=7)
+        
         if vault[site]['priority'] == '3':
-            print("\33[34m"+f"{i}. "+"\33[0m"+ f"{site}"+"\33[0m")
+            print("\33[34m"+f"{i}. "+"\33[0m"+ f"{site}"+"\33[0m", end="")
+            if overdue1:
+                print(" \033[0;31m!\33[0m", end="")
             if timestamp == True:
+                print()
                 print("\33[34mCreated:\33[0m", vault[site]['time'],end="")
-                print("\33[34m Priority:\33[0m", current_pri_string,"\n")
+                print("\33[34m Priority:\33[0m", current_pri_string)
         if vault[site]['priority'] == '2':
-            print("\33[34m"+f"{i}. "+"\33[93m"+ f"{site}"+"\33[0m")
+            print("\33[34m"+f"{i}. "+"\33[93m"+ f"{site}"+"\33[0m", end="")
+            if overdue1:
+                print(" \033[0;31m!\33[0m", end="")
             if timestamp == True:
+                print()
                 print("\33[34mCreated:\33[0m", vault[site]['time'],end="")
-                print("\33[34m Priority:\33[0m", current_pri_string,"\n")  
+                print("\33[34m Priority:\33[0m", current_pri_string)  
         if vault[site]['priority'] == '1':
-            print("\33[34m"+f"{i}. "+"\033[0;31m"+ f"{site}"+"\33[0m")
+            print("\33[34m"+f"{i}. "+"\033[0;31m"+ f"{site}"+"\33[0m", end="")
+            if overdue1:
+                print(" \033[0;31m!\33[0m", end="")
             if timestamp == True:
+                print()
                 print("\33[34mCreated:\33[0m", vault[site]['time'],end="")
-                print("\33[34m Priority:\33[0m", current_pri_string,"\n")
-
+                print("\33[34m Priority:\33[0m", current_pri_string)
+        print()
+        
 def delete_entry(sorter, vault: dict):
     if not vault:
         print("Vault is empty.")
