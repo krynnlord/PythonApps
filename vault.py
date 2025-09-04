@@ -186,7 +186,7 @@ def main():
         print("\33[34m        Password Vault    \33[0m")
         print("\33[93m================================\33[0m")
         print("\n[\33[92mV\33[0m] View list")
-        print("[\33[\33[92mS\33[0m] Search")
+        print("[\33[92mS\33[0m] Search")
         print("[\33[92mA\33[0m] Add entry")
         print("[\33[92mD\33[0m] Delete entry")
         print("[\33[92mC\33[0m] Change site password")
@@ -236,3 +236,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
