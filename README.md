@@ -11,3 +11,5 @@ Notepad app that uses encrypted database.
 
 ### Tasks
 Task management app that uses encrypted database with priority coloring.
+
+Example of Location of settings file for cmd: C:\Users\richard.miller\AppData\Local\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState
