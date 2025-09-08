@@ -3,6 +3,7 @@ import json
 from datetime import datetime, timedelta
 import time
 import base64
+import pyperclip
 from cryptography.fernet import Fernet
 from hashlib import sha256
 
@@ -55,18 +56,29 @@ def view_entry_list(vault: dict, filtered_sites=None):
         print("\33[34m"+f"{i}. "+"\33[0m"+ f"{vault[site]['name']}"+"\33[0m")
         
     print("\n")
-    choice = int(input("> "))
-    clear_screen()
-    if choice == 0:
-            return
-    selected_site = sites[choice - 1] 
-    print("\33[92mNote\33[0m")
-    print(vault[selected_site]['name'])
-    print("\33[92m\nDetails\33[0m")
-    print(vault[selected_site]['task'])
     
-    input("\n")
-        
+    try: 
+        choice = int(input("Enter number (0 to cancel): "))
+        clear_screen()
+
+        if choice == 0:
+                return
+        selected_site = sites[choice - 1] 
+        print("\33[92mNote\33[0m")
+        print(vault[selected_site]['name'])
+        print("\33[92m\nDetails\33[0m")
+        print(vault[selected_site]['task'])
+
+        c = input("\n\n\33[93mEnter to continue (c to copy) \33[0m")
+        if c.lower() == 'c':
+            pyperclip.copy(f"{vault[selected_site]['task']}")
+            print("✅ Note copied to clipboard.")
+            time.sleep(1)
+    
+    except (ValueError, IndexError):
+        return
+    
+               
 def delete_entry(vault: dict):
     if not vault:
         print("Vault is empty.")
