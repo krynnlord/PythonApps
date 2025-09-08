@@ -114,17 +114,32 @@
                 "tabTitle": "Richard's Tasks",
                 "useAcrylic": false
             },
+
+            {
+                "altGrAliasing": true,
+                "antialiasingMode": "grayscale",
+                "closeOnExit": "automatic",
+                "commandline": "python notes.py",
+                "cursorShape": "bar",
+                "font": 
+                {
+                    "size": 12
+                },
+                "guid": "{0caa0dad-35be-5f56-a8ff-afceeeaa6101}",
+                "historySize": 9001,
+                "icon": "C:\\Users\\richard.miller\\OneDrive - State of North Dakota\\Documents\\Richnotes\\notes.png",
+                "name": "Notes",
+                "padding": "8, 8, 8, 8",
+                "snapOnInput": true,
+                "startingDirectory": "C:\\Users\\richard.miller\\OneDrive - State of North Dakota\\Documents\\Richnotes",
+                "tabTitle": "Richard's Notes",
+                "useAcrylic": false
+            },
             {
                 "commandline": "%SystemRoot%\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
                 "guid": "{61c54bbd-c2c6-5271-96e7-009a87ff44bf}",
                 "hidden": false,
                 "name": "Windows PowerShell"
-            },
-            {
-                "commandline": "%SystemRoot%\\System32\\cmd.exe",
-                "guid": "{0caa0dad-35be-5f56-a8ff-afceeeaa6101}",
-                "hidden": false,
-                "name": "Command Prompt"
             }
         ]
     },
