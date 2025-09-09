@@ -148,7 +148,10 @@ def main():
             print("[\33[92mA\33[0m] Add County")
         if vault and xtra_options:
             print("[\33[92mD\33[0m] Delete County")
-        print("[\33[92m?\33[0m] Maintenance Mode")
+        if xtra_options:
+            print("[\33[92m?\33[0m] Normal Mode")
+        else:
+            print("[\33[92m?\33[0m] Maintenance Mode")
         print("[\33[92mQ\33[0m] Quit\n")
         
         choice = input("> ").strip().lower()
