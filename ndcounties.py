@@ -38,7 +38,7 @@ def add_entry(vault: dict):
     site_cities = input("\33[93mCities (space separated): \33[0m")
     vault[site] = {'county': site, 'number' : site_number, 'cities' : site_cities}
     
-def view_entry_list(vault: dict, fernet: Fernet, filtered_sites=None):
+def view_entry_list(vault: dict, fernet: Fernet, xtra_options, filtered_sites=None):
        
     if not vault:
         return
@@ -68,8 +68,11 @@ def view_entry_list(vault: dict, fernet: Fernet, filtered_sites=None):
         print("\33[92m\nCities\33[0m")
         print(vault[selected_site]['cities'])
 
-        c = input("\n\n\33[93mEnter to continue (c to add cities) \33[0m")
-        if c == "c":
+        if xtra_options:
+            c = input("\n\n\33[93mEnter to continue (c to add cities) \33[0m")
+        else:
+            c = input("\n\n\33[93mEnter to continue \33[0m")
+        if c == "c" and xtra_options:
             add_cities(vault, fernet, selected_site)
 
     except (ValueError, IndexError):
@@ -113,11 +116,11 @@ def delete_entry(vault: dict):
 def get_num_of_entries(vault: dict):
     return len(vault)    
 
-def search_vault(vault: dict, fernet: Fernet):
+def search_vault(vault: dict, fernet: Fernet, xtra_options):
     term = input("\33[93mSearch: \33[0m").strip().lower()
     matches = [site for site in vault if term in site.lower() or term in vault[site]['cities'].lower()]
     clear_screen()
-    view_entry_list(vault, fernet, filtered_sites=matches)
+    view_entry_list(vault, fernet, xtra_options, filtered_sites=matches)
     
 def main():
     
@@ -154,9 +157,9 @@ def main():
             add_entry(vault)
             save_vault(vault, fernet)
         elif choice == 's' and vault:
-            search_vault(vault,fernet)
+            search_vault(vault,fernet, xtra_options)
         elif choice == 'v' and vault:
-            view_entry_list(vault, fernet)    
+            view_entry_list(vault, fernet, xtra_options)    
         elif choice == 'd' and vault and xtra_options == True:
             delete_entry(vault)
             save_vault(vault, fernet)
