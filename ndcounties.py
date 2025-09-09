@@ -64,7 +64,7 @@ def view_entry_list(vault: dict, fernet: Fernet, filtered_sites=None):
                 return
         selected_site = sites[choice - 1] 
         print("\33[92mCounty Information\33[0m")
-        print(vault[selected_site]['number'],vault[selected_site]['county'] )
+        print(vault[selected_site]['number']+' - ' + vault[selected_site]['county'] )
         print("\33[92m\nCities\33[0m")
         print(vault[selected_site]['cities'])
 
@@ -113,13 +113,15 @@ def delete_entry(vault: dict):
 def get_num_of_entries(vault: dict):
     return len(vault)    
 
-def search_vault(vault: dict):
+def search_vault(vault: dict, fernet: Fernet):
     term = input("\33[93mSearch: \33[0m").strip().lower()
     matches = [site for site in vault if term in site.lower() or term in vault[site]['cities'].lower()]
     clear_screen()
-    view_entry_list(vault,filtered_sites=matches)
+    view_entry_list(vault, fernet, filtered_sites=matches)
     
 def main():
+    
+    xtra_options = False
        
     while True:
         master_password = '12345'
@@ -130,29 +132,39 @@ def main():
         clear_screen()
         print("\33[93m================================\33[0m")
         print("\33[34m           ND Counties    \33[0m")
+        if xtra_options:
+            print("        Maintenance Mode ")
         print("\33[93m================================\33[0m")
-        print("Total Counties: " + str(num_of_entries))#view_entry_list(sorter, timestamp, vault)
+        print("Total Counties: " + str(num_of_entries))
+        
         print("")
 
         print("[\33[92mS\33[0m] Search")
-        print("[\33[92mA\33[0m] Add County")
-        if vault:
-            print("[\33[92mV\33[0m] View Counties")
-            print("[\33[92mD\33[0m] Delete Counties")
+        print("[\33[92mV\33[0m] View Counties")
+        if xtra_options:
+            print("[\33[92mA\33[0m] Add County")
+        if vault and xtra_options:
+            print("[\33[92mD\33[0m] Delete County")
+        print("[\33[92m?\33[0m] Maintenance Mode")
         print("[\33[92mQ\33[0m] Quit\n")
         
         choice = input("> ").strip().lower()
         clear_screen()
-        if choice == 'a':
+        if choice == 'a' and xtra_options == True:
             add_entry(vault)
             save_vault(vault, fernet)
         elif choice == 's' and vault:
-            search_vault(vault)
+            search_vault(vault,fernet)
         elif choice == 'v' and vault:
             view_entry_list(vault, fernet)    
-        elif choice == 'd' and vault:
+        elif choice == 'd' and vault and xtra_options == True:
             delete_entry(vault)
             save_vault(vault, fernet)
+        elif choice == '?':
+            if xtra_options == True:
+                xtra_options = False
+            else:
+                xtra_options = True
         elif choice == 'q':
             save_vault(vault, fernet)
             print("Tasks saved. Exiting.")

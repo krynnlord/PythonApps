@@ -31,7 +31,7 @@
     ],
     "copyFormatting": "none",
     "copyOnSelect": false,
-    "defaultProfile": "{0caa0dad-35be-5f56-a8ff-afceeeaa6101}",
+    "defaultProfile": "{a9ba5076-ea92-4b50-b9cb-9395f4b8e826}",
     "initialCols": 80,
     "initialRows": 50,
     "keybindings": 
@@ -114,7 +114,6 @@
                 "tabTitle": "Richard's Tasks",
                 "useAcrylic": false
             },
-
             {
                 "altGrAliasing": true,
                 "antialiasingMode": "grayscale",
@@ -136,10 +135,36 @@
                 "useAcrylic": false
             },
             {
+                "altGrAliasing": true,
+                "antialiasingMode": "grayscale",
+                "closeOnExit": "automatic",
+                "commandline": "python NDCounties.py",
+                "cursorShape": "bar",
+                "font": 
+                {
+                    "size": 12
+                },
+                "guid": "{3d28929d-7d94-4ccb-9f4d-70e41da919c3}",
+                "hidden": false,
+                "historySize": 9001,
+                "icon": "C:\\Users\\richard.miller\\OneDrive - State of North Dakota\\Documents\\NDCounties\\NDCounties.png",
+                "name": "ND Counties",
+                "padding": "8, 8, 8, 8",
+                "snapOnInput": true,
+                "startingDirectory": "C:\\Users\\richard.miller\\OneDrive - State of North Dakota\\Documents\\NDCounties",
+                "tabTitle": "ND Counties",
+                "useAcrylic": false
+            },
+            {
                 "commandline": "%SystemRoot%\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
                 "guid": "{61c54bbd-c2c6-5271-96e7-009a87ff44bf}",
                 "hidden": false,
                 "name": "Windows PowerShell"
+            },
+            {
+                "guid": "{a9ba5076-ea92-4b50-b9cb-9395f4b8e826}",
+                "hidden": false,
+                "name": "DOS"
             }
         ]
     },
