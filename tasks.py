@@ -107,6 +107,7 @@ def view_entry_list(sorter, timestamp, vault: dict, filtered_sites=None):
         # Overdue calculation !-1 week
         task_time = datetime.strptime(vault[site]['time'], "%m/%d/%Y %I:%M%p")
         overdue1 = (datetime.now() - task_time) > timedelta(days=7)
+        weeks_overdue = (datetime.now() - task_time).days // 7
         
         if vault[site]['priority'] == '3':
             print("\33[34m"+f"{i}. "+"\33[0m"+ f"{site}"+"\33[0m", end="")
@@ -115,7 +116,11 @@ def view_entry_list(sorter, timestamp, vault: dict, filtered_sites=None):
             if timestamp == True:
                 print()
                 print("\33[34mCreated:\33[0m", vault[site]['time'],end="")
-                print("\33[34m Priority:\33[0m", current_pri_string)
+                print("\33[34m Priority:\33[0m", current_pri_string, end="")
+                if overdue1:
+                    print("\033[034m Overdue:\33[0m " + str(weeks_overdue) +" week")
+                else:
+                    print(" \033[034mOverdue:\33[0m No")  
         if vault[site]['priority'] == '2':
             print("\33[34m"+f"{i}. "+"\33[93m"+ f"{site}"+"\33[0m", end="")
             if overdue1:
@@ -123,7 +128,11 @@ def view_entry_list(sorter, timestamp, vault: dict, filtered_sites=None):
             if timestamp == True:
                 print()
                 print("\33[34mCreated:\33[0m", vault[site]['time'],end="")
-                print("\33[34m Priority:\33[0m", current_pri_string)  
+                print("\33[34m Priority:\33[0m", current_pri_string, end="")
+                if overdue1:
+                    print("\033[034m Overdue:\33[0m " + str(weeks_overdue) +" week")
+                else:
+                    print(" \033[034mOverdue:\33[0m No")   
         if vault[site]['priority'] == '1':
             print("\33[34m"+f"{i}. "+"\033[0;31m"+ f"{site}"+"\33[0m", end="")
             if overdue1:
@@ -131,7 +140,11 @@ def view_entry_list(sorter, timestamp, vault: dict, filtered_sites=None):
             if timestamp == True:
                 print()
                 print("\33[34mCreated:\33[0m", vault[site]['time'],end="")
-                print("\33[34m Priority:\33[0m", current_pri_string)
+                print("\33[34m Priority:\33[0m", current_pri_string, end="")
+                if overdue1:
+                    print("\033[034m Overdue:\33[0m " + str(weeks_overdue) +" week")
+                else:
+                    print(" \033[034mOverdue:\33[0m No") 
         print()
         
 def delete_entry(sorter, vault: dict):
