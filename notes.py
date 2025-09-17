@@ -47,7 +47,7 @@ def view_entry_list(vault: dict, filtered_sites=None):
     print("")
     
     sites = filtered_sites if filtered_sites is not None else list(vault.keys())
-    sites.sort(key=lambda site: vault[site]['time'])
+    sites.sort(key=lambda site: vault[site]['name'])
         
     if not sites:
         return
@@ -99,7 +99,7 @@ def delete_entry(vault: dict):
         selected_site = sites[selection - 1]
 
         del vault[selected_site]
-        print(f"✅ Task deleted.")
+        print(f"✅ Note deleted.")
         
     except (ValueError, IndexError):
         print("Invalid selection.")
