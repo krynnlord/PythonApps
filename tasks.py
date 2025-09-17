@@ -177,6 +177,12 @@ def delete_entry(sorter, vault: dict):
         del vault[selected_site]
         print(f"✅ Task deleted.")
         
+        # Write to file immediately after deletion
+        file1 = open("deletion_log.txt", "a")
+        file1.write(f"{datetime.now().strftime ('%m/%d/%Y %I:%M%p')}: {selected_site}\n")
+        file1.close()
+        
+        
     except (ValueError, IndexError):
         print("Invalid selection.")
     
