@@ -7,7 +7,7 @@ import pyperclip
 from cryptography.fernet import Fernet
 from hashlib import sha256
 
-VAULT_FILE = 'notes.dat'
+VAULT_FILE = 'notes/notes.dat'
 
 def clear_screen():
     os.system("cls" if os.name == "nt" else "clear")

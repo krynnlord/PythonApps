@@ -6,7 +6,7 @@ import base64
 from cryptography.fernet import Fernet
 from hashlib import sha256
 
-VAULT_FILE = 'tasks.dat'
+VAULT_FILE = 'tasks/tasks.dat'
 
 def clear_screen():
     os.system("cls" if os.name == "nt" else "clear")
@@ -178,7 +178,7 @@ def delete_entry(sorter, vault: dict):
         print(f"✅ Task deleted.")
         
         # Write to file immediately after deletion
-        file1 = open("deletion_log.txt", "a")
+        file1 = open("tasks/deletion_log.txt", "a")
         file1.write(f"{datetime.now().strftime ('%m/%d/%Y %I:%M%p')}: {selected_site}\n")
         file1.close()
         
@@ -204,7 +204,8 @@ def main():
         print("\33[34m             Tasks    \33[0m")
         print("\33[93m================================\33[0m")
         view_entry_list(sorter, timestamp, vault)
-        print("")
+        if timestamp == False:
+            print("")
 
         print("[\33[92mA\33[0m] Add Task")
         if vault:

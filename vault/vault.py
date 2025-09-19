@@ -1,12 +1,13 @@
 import os
 import json
 import base64
+import time
 import getpass
 import pyperclip
 from cryptography.fernet import Fernet
 from hashlib import sha256
 
-VAULT_FILE = 'vault.dat'
+VAULT_FILE = 'vault/vault.dat'
 
 def clear_screen():
     os.system("cls" if os.name == "nt" else "clear")
@@ -24,6 +25,7 @@ def load_vault(fernet: Fernet) -> dict:
         return json.loads(decrypted_data)
     except:
         print("Invalid master password or corrupted vault.")
+        time.sleep(1)
         exit(1)
 
 def save_vault(data: dict, fernet: Fernet):

@@ -2,7 +2,7 @@ import os
 import csv
 import time
 
-CSV_FILE = 'contacts.csv'
+CSV_FILE = 'contacts/contacts.csv'
 FIELDS = ['first_name', 'last_name', 'title', 'phone_number', 'email']
 
 def clear_screen():

@@ -6,7 +6,7 @@ import base64
 from cryptography.fernet import Fernet
 from hashlib import sha256
 
-VAULT_FILE = 'ndcounties.dat'
+VAULT_FILE = 'ndcounties/ndcounties.dat'
 
 def clear_screen():
     os.system("cls" if os.name == "nt" else "clear")

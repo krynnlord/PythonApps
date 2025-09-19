@@ -1,4 +1,4 @@
-# Python Password Vault, Notes, Tasks & ND Counties
+# Python Password Vault, Notes, Tasks, Contacts & ND Counties
 *(C)opyright 2025 RLM Productions*
 
 <b>Needed Libraries:</b> *pyperclip, cryptography*
@@ -14,6 +14,9 @@ Task management app that uses encrypted database with priority coloring.
 
 ### ND Counties
 Database of all ND Counties. Ability to add, delete counties as well as adding cities to counties.
+
+### Contacts
+Contact storage with exported to CSV for easy add/delete
 
 ### Settings file for Windows CMD
 Example of Location of settings file for cmd: C:\Users\...\AppData\Local\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState
