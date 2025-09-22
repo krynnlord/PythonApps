@@ -174,12 +174,13 @@ def delete_entry(sorter, vault: dict):
             return
         selected_site = sites[selection - 1]
 
-        del vault[selected_site]
         print(f"✅ Task deleted.")
         
         # Write to file immediately after deletion
         file1 = open("tasks/deletion_log.txt", "a")
-        file1.write(f"{datetime.now().strftime ('%m/%d/%Y %I:%M%p')}: {selected_site}\n")
+        file1.write(f"Task: {vault[selected_site]['task']}\nPriority: {vault[selected_site]['priority']}\nCreated: {vault[selected_site]['time']}\nDeleted: {datetime.now().strftime('%m/%d/%Y %I:%M%p')}\n\n")
+        
+        del vault[selected_site]
         file1.close()
         
         
