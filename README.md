@@ -17,6 +17,3 @@ Database of all ND Counties. Ability to add, delete counties as well as adding c
 
 ### Contacts
 Contact storage with exported to CSV for easy add/delete
-
-### Settings file for Windows CMD
-Example of Location of settings file for cmd: C:\Users\...\AppData\Local\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState
