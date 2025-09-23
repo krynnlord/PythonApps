@@ -1,7 +1,7 @@
 # Python Password Vault, Notes, Tasks, Contacts & ND Counties
 *(C)opyright 2025 RLM Productions*
 
-<b>Needed Libraries:</b> *pyperclip, cryptography*
+<b>Needed Libraries:</b> *pyperclip, cryptography*<br>
 *install via - pip install -r requirements.txt*
 
 ### Password Vault
