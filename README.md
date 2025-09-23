@@ -2,7 +2,7 @@
 *(C)opyright 2025 RLM Productions*
 
 <b>Needed Libraries:</b> *pyperclip, cryptography*<br>
-*install via - pip install -r requirements.txt*
+*install: pip install -r requirements.txt*
 
 ### Password Vault
 Password vault that uses encrypted data file to store commonly used passwords. Ability to show or hide(default) passwords from view and copies password to clipboard.
