@@ -26,6 +26,7 @@ def main():
         print("[\33[92m3\33[0m] Notes")
         print("[\33[92m4\33[0m] ND Counties")
         print("[\33[92m5\33[0m] Contacts")
+        print("[\33[92m6\33[0m] CAD Updates")
         print("")
         print("[\33[92mQ\33[0m] Quit")
         print("")
@@ -41,6 +42,8 @@ def main():
             subprocess.run(['python', 'ndcounties/ndcounties.py'])
         elif choice == '5':
             subprocess.run(['python', 'contacts/contacts.py'])
+        elif choice == '6':
+            subprocess.run(['python', 'cadupdates/cadupdates.py'])
         elif choice == 'q':
             if confirmexit():
                 break   
