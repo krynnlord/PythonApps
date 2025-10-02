@@ -1,5 +1,7 @@
 import os
 import subprocess
+import calendar
+import datetime
 
 def clear_screen():
     os.system("cls" if os.name == "nt" else "clear")
@@ -11,7 +13,21 @@ def confirmexit():
             return True
         else:
             return False
-    
+        
+def second_tuesday_plus_13():
+    today = datetime.date.today()
+    year = today.year
+    month = today.month
+    cal = calendar.monthcalendar(year, month)
+    # Find the second Tuesday
+    tuesdays = [week[calendar.TUESDAY] for week in cal if week[calendar.TUESDAY] != 0]
+    if len(tuesdays) >= 2:
+        second_tuesday = datetime.date(year, month, tuesdays[1])
+        result_date = second_tuesday + datetime.timedelta(days=13)
+        return result_date.strftime("%m/%d/%Y")
+    else:
+        return None
+
 def main():
        
     while True:
@@ -26,7 +42,9 @@ def main():
         print("[\33[92m3\33[0m] Notes")
         print("[\33[92m4\33[0m] ND Counties")
         print("[\33[92m5\33[0m] Contacts")
-        print("[\33[92m6\33[0m] CAD Updates")
+        print("[\33[92m6\33[0m] CAD Updates (\33[93m", end="")
+        print(second_tuesday_plus_13(), end="")
+        print("\33[0m)")
         print("")
         print("[\33[92mQ\33[0m] Quit")
         print("")
